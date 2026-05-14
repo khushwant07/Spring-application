@@ -1,0 +1,29 @@
+<mat-toolbar color="primary" class="toolbar">
+  <a routerLink="/" class="brand">{{ title }}</a>
+  <span class="spacer"></span>
+  <a mat-button routerLink="/products">Products</a>
+  <a mat-button routerLink="/cart">
+    <mat-icon
+      [matBadge]="cart.count()"
+      [matBadgeHidden]="cart.count() === 0"
+      matBadgeSize="small"
+      matBadgeOverlap="false"
+      >shopping_cart</mat-icon
+    >
+    Cart
+  </a>
+  @if (auth.isLoggedIn()) {
+    <a mat-button routerLink="/orders">Orders</a>
+    <a mat-button routerLink="/profile">Profile</a>
+    @if (auth.isAdmin()) {
+      <a mat-button routerLink="/admin">Admin</a>
+    }
+    <button mat-button type="button" (click)="auth.logout()">Logout</button>
+  } @else {
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+  }
+</mat-toolbar>
+<main class="main">
+  <router-outlet />
+</main>
